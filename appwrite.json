@@ -1,0 +1,21 @@
+{
+    "projectId": "62c8dfab991b7d0b8498",
+    "projectName": "  realtime-banner",
+    "functions": [
+        {
+            "$id": "twitter-profilepic",
+            "name": "twitter-profilepic",
+            "runtime": "node-16.0",
+            "path": "functions/twitter-profilepic",
+            "entrypoint": "src/index.js",
+            "ignore": [
+                "node_modules",
+                ".npm"
+            ],
+            "execute": [],
+            "events": [],
+            "schedule": "",
+            "timeout": 15
+        }
+    ]
+}
