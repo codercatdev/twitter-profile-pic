@@ -61,17 +61,7 @@ export const Layout = ({ children }: { children: JSX.Element }) => {
               </li>
               <li>
                 {user ? (
-                  <ul className="menu menu-compact bg-base-100 w-56 p-2 rounded-box">
-                    <li>
-                      <a>Item 1</a>
-                    </li>
-                    <li>
-                      <a>Item 2</a>
-                    </li>
-                    <li>
-                      <a>Item 3</a>
-                    </li>
-                  </ul>
+                  <a>{user.name}</a>
                 ) : (
                   <a href="/api/auth/login" className="btn btn-primary">
                     Login

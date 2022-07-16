@@ -5,7 +5,7 @@ export const useAppwrite = () => {
   const [client, setClient] = useState<null | Client>(null);
   const [account, setAccount] = useState<null | Account>(null);
   const [sessions, setSessions] = useState<null | Models.SessionList>(null);
-  const [user, setUser] = useState<null | Models.Preferences>(null);
+  const [user, setUser] = useState<null | Models.User<any>>(null);
 
   const endpoint = process.env.NEXT_PUBLIC_APPWRITE_END_POINT;
   const projectId = process.env.NEXT_PUBLIC_APPWRITE_PROJECT_ID;
@@ -49,38 +49,30 @@ export const useAppwrite = () => {
 
   const getSessions = async (account: Account) => {
     try {
+      console.log("getting sessions");
       const sessions = await account.getSessions();
-      console.log(sessions);
+      console.log("sessions", sessions);
       setSessions(sessions);
     } catch (error) {
-      //   throw error;
+      //failed to get sessoion go login
+      createSession(account);
     }
   };
 
   useEffect(() => {
     if (!account) return;
-    console.log("getting sessions");
     getSessions(account);
   }, [account]);
 
   useEffect(() => {
-    if (!account) return;
-    if (
-      !sessions ||
-      !sessions?.total ||
-      !sessions?.sessions?.filter(
-        (s) => new Date(s?.expire * 1000) > new Date()
-      )?.length
-    ) {
-      console.log("creating session", sessions);
-      createSession(account);
-    }
+    if (!sessions) return;
+    get();
   }, [sessions]);
 
   const get = async () => {
     if (!account) return null;
     try {
-      return await account.get();
+      setUser(await account.get());
     } catch (error) {
       throw error;
     }
@@ -95,5 +87,5 @@ export const useAppwrite = () => {
     }
   };
 
-  return { client, account };
+  return { user };
 };
