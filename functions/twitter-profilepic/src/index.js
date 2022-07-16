@@ -1,4 +1,8 @@
 const sdk = require("node-appwrite");
+// const {Client:TwitterClient} = require('twitter-api-sdk');
+
+// const twitterClient = new TwitterClient(twitterBearerToken);
+
 
 /*
   'req' variable has:
@@ -14,6 +18,7 @@ const sdk = require("node-appwrite");
 */
 
 module.exports = async function (req, res) {
+  console.log(JSON.stringify(req.env))
   const client = new sdk.Client();
 
   // You can remove services you don't use
@@ -27,18 +32,18 @@ module.exports = async function (req, res) {
   let teams = new sdk.Teams(client);
   let users = new sdk.Users(client);
 
-  if (
-    !req.env['APPWRITE_FUNCTION_ENDPOINT'] ||
-    !req.env['APPWRITE_FUNCTION_API_KEY']
-  ) {
-    console.warn("Environment variables are not set. Function cannot use Appwrite SDK.");
-  } else {
+  // if (
+  //   !req.env['APPWRITE_FUNCTION_ENDPOINT'] ||
+  //   !req.env['APPWRITE_FUNCTION_API_KEY']
+  // ) {
+  //   console.warn("Environment variables are not set. Function cannot use Appwrite SDK.");
+  // } else {
     client
       .setEndpoint(req.env['APPWRITE_FUNCTION_ENDPOINT'])
       .setProject(req.env['APPWRITE_FUNCTION_PROJECT_ID'])
-      .setKey(req.env['APPWRITE_FUNCTION_API_KEY'])
-      .setSelfSigned(true);
-  }
+      // .setKey(req.env['APPWRITE_FUNCTION_API_KEY'])
+      // .setSelfSigned(true);
+  // }
 
   res.json({
     areDevelopersAwesome: true,
