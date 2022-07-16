@@ -81,11 +81,13 @@ export const useAppwrite = () => {
   const deleteSessions = async () => {
     if (!account) return null;
     try {
-      return await account.deleteSessions();
+      await account.deleteSessions();
+      setUser(null);
+      setSessions(null);
     } catch (error) {
       throw error;
     }
   };
 
-  return { user };
+  return { user, deleteSessions };
 };

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useAppwrite } from "../hooks/useAppwriteAccount";
 
 export const Layout = ({ children }: { children: JSX.Element }) => {
-  const { user } = useAppwrite();
+  const { user, deleteSessions } = useAppwrite();
 
   return (
     <>
@@ -59,16 +59,26 @@ export const Layout = ({ children }: { children: JSX.Element }) => {
               <li>
                 <a>Item 3</a>
               </li>
-              <li>
-                {user ? (
-                  <a>{user.name}</a>
-                ) : (
-                  <a href="/api/auth/login" className="btn btn-primary">
-                    Login
-                  </a>
-                )}
-              </li>
             </ul>
+            {user ? (
+              <div className="dropdown dropdown-end">
+                <label tabIndex={0} className="btn btn-primary m-1">
+                  {user.name}
+                </label>
+                <ul
+                  tabIndex={0}
+                  className="dropdown-content menu p-2 shadow bg-primary rounded-box w-52"
+                >
+                  <li>
+                    <a onClick={() => deleteSessions()}>Logout</a>
+                  </li>
+                </ul>
+              </div>
+            ) : (
+              <a href="/api/auth/login" className="btn btn-primary">
+                Login
+              </a>
+            )}
           </div>
         </div>
       </header>
