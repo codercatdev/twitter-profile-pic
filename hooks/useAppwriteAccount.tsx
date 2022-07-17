@@ -56,7 +56,7 @@ export const useAppwrite = () => {
       setSessions(sessions);
     } catch (error) {
       //failed to get sessoion go login
-      createSession();
+      // createSession();
     }
   };
 
@@ -85,6 +85,10 @@ export const useAppwrite = () => {
       await account.deleteSessions();
       setUser(null);
       setSessions(null);
+      const wnd = window.open("https://codingcatdev.us.auth0.com/v2/logout");
+      setTimeout(() => {
+        wnd?.close();
+      }, 1000);
     } catch (error) {
       throw error;
     }
