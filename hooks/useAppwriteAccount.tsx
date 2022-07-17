@@ -35,7 +35,8 @@ export const useAppwrite = () => {
    * Account Session Tracking
    */
 
-  const createSession = async (account: Account) => {
+  const createSession = async () => {
+    if (!account) return;
     try {
       await account.createOAuth2Session(
         "auth0",
@@ -55,7 +56,7 @@ export const useAppwrite = () => {
       setSessions(sessions);
     } catch (error) {
       //failed to get sessoion go login
-      createSession(account);
+      createSession();
     }
   };
 
@@ -89,5 +90,5 @@ export const useAppwrite = () => {
     }
   };
 
-  return { user, deleteSessions };
+  return { user, deleteSessions, createSession };
 };

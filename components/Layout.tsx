@@ -3,10 +3,10 @@ import { useEffect } from "react";
 import { useAppwrite } from "../hooks/useAppwriteAccount";
 
 export const Layout = ({ children }: { children: JSX.Element }) => {
-  const { user, deleteSessions } = useAppwrite();
+  const { user, deleteSessions, createSession } = useAppwrite();
 
   return (
-    <>
+    <div className="m-1 lg:m-4 grid gap-1 lg:gap-4">
       <header>
         <div className="navbar bg-base-100">
           <div className="flex-none">
@@ -61,7 +61,7 @@ export const Layout = ({ children }: { children: JSX.Element }) => {
               </li>
             </ul>
             {user ? (
-              <div className="dropdown dropdown-end">
+              <div className="dropdown dropdown-end dropdown-hover">
                 <label tabIndex={0} className="btn btn-primary m-1">
                   {user.name}
                 </label>
@@ -75,17 +75,38 @@ export const Layout = ({ children }: { children: JSX.Element }) => {
                 </ul>
               </div>
             ) : (
-              <a href="/api/auth/login" className="btn btn-primary">
+              <a className="btn btn-primary" onClick={() => createSession()}>
                 Login
               </a>
             )}
           </div>
         </div>
       </header>
-      <main>
+      <main className="">
         <>{children}</>
       </main>
-      <footer></footer>
-    </>
+      <footer className="footer p-10 bg-neutral text-neutral-content">
+        <div>
+          <span className="footer-title">Services</span>
+          <a className="link link-hover">Branding</a>
+          <a className="link link-hover">Design</a>
+          <a className="link link-hover">Marketing</a>
+          <a className="link link-hover">Advertisement</a>
+        </div>
+        <div>
+          <span className="footer-title">Company</span>
+          <a className="link link-hover">About us</a>
+          <a className="link link-hover">Contact</a>
+          <a className="link link-hover">Jobs</a>
+          <a className="link link-hover">Press kit</a>
+        </div>
+        <div>
+          <span className="footer-title">Legal</span>
+          <a className="link link-hover">Terms of use</a>
+          <a className="link link-hover">Privacy policy</a>
+          <a className="link link-hover">Cookie policy</a>
+        </div>
+      </footer>
+    </div>
   );
 };
